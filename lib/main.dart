@@ -1,8 +1,8 @@
-//import 'dart:io';
-//import 'dart:async';
+import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 
-//import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() {
   runApp(MyApp());
@@ -54,10 +54,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-//  final FirebaseMessaging _fcm = FirebaseMessaging();
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
   int _counter = 0;
-//  StreamSubscription iosSubscription;
+  StreamSubscription iosSubscription;
 
   void _incrementCounter() {
     setState(() {
@@ -75,44 +75,44 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
 
-//    if (Platform.isIOS) {
-//      iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
-//        // save the token  OR subscribe to a topic here
-//      });
-//
-//      _fcm.requestNotificationPermissions(IosNotificationSettings());
-//    }
-//
-//    _fcm.configure(
-//      onMessage: (Map<String, dynamic> message) async {
-//        print("onMessage: $message");
-//        showDialog(
-//          context: context,
-//          builder: (context) => AlertDialog(
-//            content: ListTile(
-//              title: Text(message['notification']['title']),
-//              subtitle: Text(message['notification']['body']),
-//            ),
-//            actions: <Widget>[
-//              FlatButton(
-//                child: Text('Ok'),
-//                onPressed: () => Navigator.of(context).pop(),
-//              ),
-//            ],
-//          ),
-//        );
-//      },
-//      onLaunch: (Map<String, dynamic> message) async {
-//        print("onLaunch: $message");
-//        // TODO optional
-//      },
-//      onResume: (Map<String, dynamic> message) async {
-//        print("onResume: $message");
-//        // TODO optional
-//      },
-//    );
-//
-//    _saveDeviceToken();
+    if (Platform.isIOS) {
+      iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+        // save the token  OR subscribe to a topic here
+      });
+
+      _fcm.requestNotificationPermissions(IosNotificationSettings());
+    }
+
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+      },
+    );
+
+    _saveDeviceToken();
   }
 
   @override
@@ -168,9 +168,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   /// Get the token, save it to the database for current user
-//  _saveDeviceToken() async {
-//    // Get the token for this device
-//    String fcmToken = await _fcm.getToken();
-//    print(fcmToken);
-//  }
+  _saveDeviceToken() async {
+    // Get the token for this device
+    String fcmToken = await _fcm.getToken();
+    print(fcmToken);
+  }
 }
