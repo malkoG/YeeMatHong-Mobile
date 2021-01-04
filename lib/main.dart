@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import 'package:yeemathongmobile/model/notice.dart';
+import 'package:yeemathongmobile/repository/notice_repository.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -115,6 +118,43 @@ class _MyHomePageState extends State<MyHomePage> {
     _saveDeviceToken();
   }
 
+  Widget renderNoticeCard(Notice notice) {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 5.0
+          ),
+          child: Column(
+            children: <Widget>[
+              Text(notice.title),
+              Text(notice.author),
+              Text(notice.published_at),
+            ],
+          )
+        )
+      ]
+    );
+
+//      (notice.title);
+  }
+
+  Widget renderNotices(List<Notice> notices) {
+    return Expanded( // NOTE : ListView.builder 넣을때 필수
+      child: ListView.separated(
+        itemCount: notices.length,
+        itemBuilder: (BuildContext context, int idx) {
+          Notice notice = notices[idx];
+          return renderNoticeCard(notice);
+        },
+        separatorBuilder: (context, index) {
+          return const Divider();
+        }
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -149,13 +189,18 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            FutureBuilder(
+              future: NoticeRepository.getNotices(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return renderNotices(snapshot.data);
+                } else if (snapshot.hasError) {
+                  return Text("Error occured..");
+                }
+
+                return Text("Loading...");
+              }
+            )
           ],
         ),
       ),
