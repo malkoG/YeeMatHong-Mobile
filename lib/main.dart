@@ -195,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (snapshot.hasData) {
                   return renderNotices(snapshot.data);
                 } else if (snapshot.hasError) {
-                  return Text("Error occured..");
+                  return Text(snapshot.error.toString());
                 }
 
                 return Text("Loading...");
