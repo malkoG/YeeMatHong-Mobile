@@ -29,12 +29,25 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
-  firebase_core: ^0.4.0
-  firebase_auth: ^0.11.1+6
-  cloud_firestore: ^0.12.5
-  firebase_messaging: ^5.0.2
+  firebase_core: ^1.4.0
+  firebase_auth: ^3.0.1
+  cloud_firestore: ^2.4.0
+  firebase_messaging: ^10.0.4
 
-  http: ^0.12.0
+  http: ^0.13.0
+
+  # GraphQL related packages
+  dio: ^4.0.0
+  gql_link: ^0.4.0
+  gql_http_link: ^0.4.0
+  gql_dio_link: ^0.1.0
+  graphql_flutter: ^5.0.0
+
+  # cookie-authentication related packages
+  cookie_jar: ^3.0.1
+  dio_cookie_manager: ^2.0.0
+  path_provider: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
